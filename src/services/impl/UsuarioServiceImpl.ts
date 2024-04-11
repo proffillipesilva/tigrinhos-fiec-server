@@ -24,6 +24,7 @@ export class UsuarioServiceImpl implements UsuarioService {
         usuarioNovo.updateAt = new Date();
 
         // crio o ID dinamicamente
+        usuarioNovo.id =v4();
         return this.usuarioRepositorio.save(usuarioNovo);
 
     }

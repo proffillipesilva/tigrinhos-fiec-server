@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import http from 'http';
 import app from './config';
+import { AppDataSource } from './config/data-source';
 
 const nomeApp = ["Tigrinhos Fiec 2024"]
 
@@ -13,4 +14,6 @@ console.log(`${nomeApp} vai rodar na porta ${process.env.PORT}`);
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT, () => "Servidor Inicializado");
+AppDataSource.initialize().then(() => {
+    server.listen(process.env.PORT, () => "Servidor Inicializado");
+})
