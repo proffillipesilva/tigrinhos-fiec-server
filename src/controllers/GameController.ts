@@ -20,7 +20,7 @@ export class GameController {
 
     updateGame = async (req: Request, res: Response) => {
         try{
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
             await this.gameService.update(req.body, id);
             return res.status(200).send("ok");
         } catch(err){
@@ -31,9 +31,9 @@ export class GameController {
 
     readById = async (req: Request, res: Response) => {
         try{
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
             const game = await this.gameService.readById(id);
-            if (game) return res.status(200).send("ok");
+            if (game) return res.status(200).send(game);
             return res.status(404).end("Not found")
         } catch(err){
             return res.status(500).end("Deu ruim");
@@ -42,7 +42,7 @@ export class GameController {
 
     deleteById = async (req: Request, res: Response) => {
         try{
-            const id = parseInt(req.params.id);
+            const id = req.params.id;
             await this.gameService.deleteById(id);
             return res.status(200).end("ok")
         } catch(err){

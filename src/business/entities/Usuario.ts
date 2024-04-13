@@ -11,11 +11,10 @@ export class Usuario extends Base {
 }*/
 
 import { Entity, Column, PrimaryColumn } from "typeorm"
+import { BaseTypeorm } from "./BaseTypeOrm"
 
 @Entity()
-export class Usuario {
-    @PrimaryColumn()
-    id: string
+export class Usuario extends BaseTypeorm {
 
     @Column({unique: true})
     cpf: string
@@ -28,10 +27,5 @@ export class Usuario {
 
     @Column({nullable: true})
     idade: number
-
-    @Column()
-    createdAt: Date
-
-    @Column()
-    updateAt: Date
+    
 }

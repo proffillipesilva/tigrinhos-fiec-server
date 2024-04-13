@@ -20,11 +20,8 @@ export class UsuarioServiceImpl implements UsuarioService {
         usuarioNovo.cpf = cpf;
         usuarioNovo.email = email;
         usuarioNovo.name = name;
-        usuarioNovo.createdAt = new Date();
-        usuarioNovo.updateAt = new Date();
-
-        // crio o ID dinamicamente
-        usuarioNovo.id =v4();
+    
+       
         return this.usuarioRepositorio.save(usuarioNovo);
 
     }

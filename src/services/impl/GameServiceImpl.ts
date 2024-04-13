@@ -13,7 +13,7 @@ export class GameServiceImpl implements GameService {
     async insert(game: any): Promise<Game> {
         return await this.gameRepositorio.save(game);
     }
-    async update(game: any, id: number): Promise<void> {
+    async update(game: any, id: string): Promise<void> {
         const gameAtual  = await this.gameRepositorio.findById(id);
         if(gameAtual != null){
             gameAtual.title = game.title;
@@ -25,10 +25,10 @@ export class GameServiceImpl implements GameService {
     async readAll(): Promise<Game[]> {
         return await this.gameRepositorio.find();
     }
-    async readById(id: number): Promise<Game | undefined> {
+    async readById(id: string): Promise<Game | undefined> {
         return await this.gameRepositorio.findById(id);
     }
-    async deleteById(id: number): Promise<void> {
+    async deleteById(id: string): Promise<void> {
         await this.gameRepositorio.removeById(id);
     }
     
