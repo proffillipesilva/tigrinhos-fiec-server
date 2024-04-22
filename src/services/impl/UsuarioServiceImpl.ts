@@ -17,9 +17,9 @@ export class UsuarioServiceImpl implements UsuarioService {
     criaUsuario(usuarioRequestDto: UsuarioRequestDto): Promise<Usuario> {
         const {cpf, name, email} = usuarioRequestDto;
         const usuarioNovo = new Usuario();
-        usuarioNovo.cpf = cpf;
+        //usuarioNovo.cpf = cpf;
         usuarioNovo.email = email;
-        usuarioNovo.name = name;
+       // usuarioNovo.name = name;
     
        
         return this.usuarioRepositorio.save(usuarioNovo);
