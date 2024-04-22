@@ -4,8 +4,8 @@
   "description": "Servidor para jogo de apostas educativo da FIEC",
   "main": "index.js",
   "scripts": {
-    "start": "node build/index.js",
-    "dev": " nodemon src/index.ts",
+    "start": "set NODE_ENV=local && node build/index.js",
+    "dev": "set NODE_ENV=local && nodemon src/index.ts",
     "build": "tsc",
     "test": "jest"
   },
@@ -24,6 +24,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
+    "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.20",
     "@types/uuid": "^9.0.8",
@@ -37,6 +38,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
+    "mongoose": "^8.3.1",
     "morgan": "^1.10.0",
     "mysql2": "^3.9.4",
     "reflect-metadata": "^0.2.2",
