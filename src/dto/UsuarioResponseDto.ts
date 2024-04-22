@@ -9,7 +9,7 @@ export class UsuarioResponseDto {
         const usuarioResponseDto = new UsuarioResponseDto();
         usuarioResponseDto.email = usuario.email;
         usuarioResponseDto.id = usuario.id;
-        usuarioResponseDto.name = usuario.name;
+        //usuarioResponseDto.name = usuario.name;
         return usuarioResponseDto;
     }
 }

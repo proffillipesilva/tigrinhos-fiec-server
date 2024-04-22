@@ -16,16 +16,14 @@ import { BaseTypeorm } from "./BaseTypeOrm"
 @Entity()
 export class Usuario extends BaseTypeorm {
 
-    @Column({unique: true})
-    cpf: string
-
-    @Column()
-    name: string
 
     @Column({unique: true})
     email: string
 
-    @Column({nullable: true})
-    idade: number
+    @Column()
+    password: string
+
+    
+
     
 }

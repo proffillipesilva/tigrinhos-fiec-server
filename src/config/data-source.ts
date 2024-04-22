@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import { Game } from "../business/entities/Game";
 import { Usuario } from "../business/entities/Usuario";
+import { Account } from "../business/entities/Account";
+import { Score } from "../business/entities/Score";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -11,7 +13,7 @@ export const AppDataSource = new DataSource({
     database: "tigrinhos",
     synchronize: true,
     logging: true,
-    entities: [Game, Usuario],
+    entities: [Game, Usuario, Account, Score],
     subscribers: [],
     migrations: [],
 })
