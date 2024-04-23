@@ -19,12 +19,8 @@ export class UsuarioServiceImpl implements UsuarioService {
         const usuarioNovo = new Usuario();
         //usuarioNovo.cpf = cpf;
         usuarioNovo.email = email;
-<<<<<<< HEAD
-       // usuarioNovo.name = name;
-=======
         usuarioNovo.name = name;
         usuarioNovo.type = type
->>>>>>> d77bf84 (Adicionando passport e autenticacao)
     
        
         return this.usuarioRepositorio.save(usuarioNovo);
