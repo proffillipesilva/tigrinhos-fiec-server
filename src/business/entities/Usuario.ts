@@ -12,18 +12,24 @@ export class Usuario extends Base {
 
 import { Entity, Column, PrimaryColumn } from "typeorm"
 import { BaseTypeorm } from "./BaseTypeOrm"
+import { UserType } from "./enum/UserType"
 
 @Entity()
 export class Usuario extends BaseTypeorm {
 
+    @Column({unique: true})
+    cpf: string
+
+    @Column()
+    name: string
 
     @Column({unique: true})
     email: string
 
-    @Column()
-    password: string
+    @Column({nullable: true})
+    idade: number
 
-    
-
+    @Column({nullable: false})
+    type: UserType
     
 }
