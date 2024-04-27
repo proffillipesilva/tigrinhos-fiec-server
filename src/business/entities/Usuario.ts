@@ -31,5 +31,8 @@ export class Usuario extends BaseTypeorm {
 
     @Column({nullable: false})
     type: UserType
+
+    @Column({nullable: true})
+    photo: string
     
 }

@@ -6,6 +6,7 @@ import gameRouter from '../routes/gameRouter';
 import { ExtractJwt, Strategy as JwtStrategy, StrategyOptionsWithRequest } from 'passport-jwt';
 import passport from 'passport';
 import jwt from 'jsonwebtoken'
+import authRouter from '../routes/authRouter';
 
 
 const app = express();
@@ -26,6 +27,7 @@ const jwtOptions = {
     const url = req.method + ' ' + req.baseUrl + req.url
     console.log("user: ", jwtPayload.sub, " - url: - ", url )
     if (jwtPayload.type === 0) {
+      
       done(null, { id: 'user123' });  // error first pattern
     } else {
       done(null, false);
@@ -34,8 +36,8 @@ const jwtOptions = {
 
 
   app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    if (username === 'user123' && password === 'password123') {
+    const { email, password } = req.body;
+    if (email === 'oi@fiec.com' && password === 'admin123') {
       const token = jwt.sign({ sub: 'john@mail.com', type: 0 },  jwtSecret,
       {
         expiresIn: '10m'
@@ -50,6 +52,7 @@ const jwtOptions = {
 
 app.use('/usuarios', passport.authenticate('jwt', { session: false }), usuarioRouter);
 
+app.use('/auth', authRouter);
 
 app.use('/games', gameRouter);
 
