@@ -16,6 +16,12 @@ export class BaseTypeOrmRepositorio<T extends BaseTypeorm> implements Repositori
     async find(): Promise<T[]> {
         return this.repo.find();
     }
+    async findOneQuery(obj: any): Promise<T|null> {
+        return this.repo.findOneBy(obj);
+    }
+    async findQuery(obj: any): Promise<T[]> {
+        return this.repo.find(obj);
+    }
     async findById(id: any): Promise<T | undefined> {
         const obj = await this.repo.findOneBy({id});
         console.log(obj)

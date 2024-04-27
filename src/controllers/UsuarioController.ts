@@ -26,6 +26,18 @@ export class UsuarioController {
         }
     }
 
+    updateUsuario = async (req: Request, res: Response) => {
+        try {
+            if(!req.file) throw new Error();
+            await this.usuarioService.updateUsuario(req.file, req.params.id);
+            
+            return res.status(200).send("ok");
+        } catch (err) {
+            
+            return res.status(500).end('Nao pode criar usuario')
+        }
+    }
+
     listaUsuarios = async (req: Request, res: Response) => {
         const usuarios = await this.usuarioService.listaUsuarios();
         const usuariosDto = usuarios.map(u => UsuarioResponseDto.from(u))
