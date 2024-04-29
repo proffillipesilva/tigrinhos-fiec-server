@@ -7,15 +7,17 @@ import { ExtractJwt, Strategy as JwtStrategy, StrategyOptionsWithRequest } from 
 import passport from 'passport';
 import jwt from 'jsonwebtoken'
 import authRouter from '../routes/authRouter';
+import expressWs from 'express-ws';
 
 
-const app = express();
+const app = expressWs(express()).app;
 
 app.use(cors());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'))
 app.use(express.json())
 
-const jwtSecret = 'secret'
+
+const jwtSecret = 'secret';
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
@@ -31,12 +33,15 @@ const jwtOptions = {
     done(null, req.user )
   }));
 
+  
 
 app.use('/usuarios', passport.authenticate('jwt', { session: false }), usuarioRouter);
 
 app.use('/auth', authRouter);
 
 app.use('/games', gameRouter);
+
+
 
 
 export default app;
