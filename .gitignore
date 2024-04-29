@@ -133,3 +133,6 @@ dist
 
 build
 build/
+
+uploads
+uploads/

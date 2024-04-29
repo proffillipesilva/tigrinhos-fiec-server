@@ -14,7 +14,7 @@ const usuarioController = new UsuarioController(userService);
 usuarioRouter.get('/', usuarioController.listaUsuarios);
 usuarioRouter.get('/:id', usuarioController.pegaUsuario);
 usuarioRouter.post('/', usuarioController.criaUsuario);
-usuarioRouter.put('/:id/photo', upload.single('foto'), usuarioController.updateUsuario);
+usuarioRouter.put('/photo', upload.single('foto'), usuarioController.updateUsuario);
 usuarioRouter.delete('/:id', usuarioController.deletaUsuario);
 
 

@@ -15,7 +15,7 @@ app.use(cors());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'))
 app.use(express.json())
 
-const jwtSecret = process.env.JWT_SECRET || 'secret'
+const jwtSecret = 'secret'
 
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
@@ -26,28 +26,10 @@ const jwtOptions = {
   passport.use(new JwtStrategy(jwtOptions as StrategyOptionsWithRequest, async ( req: Request, jwtPayload, done) => {
     const url = req.method + ' ' + req.baseUrl + req.url
     console.log("user: ", jwtPayload.sub, " - url: - ", url )
-    if (jwtPayload.type === 0) {
-      
-      done(null, { id: 'user123' });  // error first pattern
-    } else {
-      done(null, false);
-    }
+    
+    req.user = { id: jwtPayload.id, email: jwtPayload.sub}
+    done(null, req.user )
   }));
-
-
-  app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    if (email === 'oi@fiec.com' && password === 'admin123') {
-      const token = jwt.sign({ sub: 'john@mail.com', type: 0 },  jwtSecret,
-      {
-        expiresIn: '10m'
-      });
-      res.json({ token });
-    } else {
-      res.status(401).send('Invalid credentials');
-    }
-  });
-
 
 
 app.use('/usuarios', passport.authenticate('jwt', { session: false }), usuarioRouter);
