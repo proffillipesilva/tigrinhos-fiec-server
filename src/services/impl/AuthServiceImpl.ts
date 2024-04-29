@@ -10,11 +10,11 @@ export class AuthServiceImpl implements AuthService {
         this.usuarioRepositorio = usuarioRepositorio;
     }
     async login(email: string, password: string): Promise<string> {
-        const jwtSecret = process.env.JWT_SECRET || 'secret'
+        const jwtSecret = 'secret'
         const usuario = await this.usuarioRepositorio.findOneQuery({ email })
         if (usuario) {
             //const token = jwt.sign({ sub: usuario.email, type: 0, id: usuario.id }, jwtSecret,
-            const token = jwt.sign({ sub: usuario.email }, jwtSecret,
+            const token = jwt.sign({ sub: usuario.email, id: usuario.id }, jwtSecret,
     
             {
                     expiresIn: '10m'

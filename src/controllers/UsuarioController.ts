@@ -28,8 +28,9 @@ export class UsuarioController {
 
     updateUsuario = async (req: Request, res: Response) => {
         try {
-            if(!req.file) throw new Error();
-            await this.usuarioService.updateUsuario(req.file, req.params.id);
+            if(!req.file || !req.user ) throw new Error();
+            const user = req.user as any;
+            await this.usuarioService.updateUsuario(req.file, user.id);
             
             return res.status(200).send("ok");
         } catch (err) {
