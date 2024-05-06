@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.1/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.1/firebase-messaging-compat.min.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "",
+            authDomain: "tigrinhos-fiec.firebaseapp.com",
+            projectId: "tigrinhos-fiec",
+            storageBucket: "tigrinhos-fiec.appspot.com",
+            messagingSenderId: "",
+            appId: ""
+        };
+
+
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Configurando o serviço de messaging
+        const messaging = firebase.messaging();
+
+        function InitializeFireBaseMessaging() {
+            Notification
+                .requestPermission()
+                .then(function () {
+                    console.log("Notification Permission");
+                    return messaging.getToken();
+                })
+                .then(function (token) {
+                    console.log("Token : " + token);
+                })
+                .catch(function (reason) {
+                    console.log(reason);
+                });
+        }
+
+        messaging.onMessage(function (payload) {
+            console.log(payload);
+            window.alert(JSON.stringify(payload))
+            const notificationOption = {
+                body: payload.notification.body,
+                icon: payload.notification.icon
+            };
+
+            if (Notification.permission === "granted") {
+                var notification = new Notification(payload.notification.title, notificationOption);
+
+                notification.onclick = function (ev) {
+                    ev.preventDefault();
+                    window.open(payload.notification.click_action, '_blank');
+                    notification.close();
+                }
+            }
+
+        });
+
+        InitializeFireBaseMessaging();
+    </script>
+</body>
+
+</html>
