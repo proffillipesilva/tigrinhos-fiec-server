@@ -15,6 +15,8 @@ usuarioRouter.get('/', usuarioController.listaUsuarios);
 usuarioRouter.get('/:id', usuarioController.pegaUsuario);
 usuarioRouter.post('/', usuarioController.criaUsuario);
 usuarioRouter.put('/photo', upload.single('foto'), usuarioController.updateUsuario);
+usuarioRouter.put('/:id', usuarioController.updateUsuarioCadastro);
+
 usuarioRouter.delete('/:id', usuarioController.deletaUsuario);
 
 

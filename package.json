@@ -48,6 +48,7 @@
     "express-ws": "^5.0.2",
     "firebase": "^10.11.1",
     "firebase-admin": "^12.1.0",
+    "google-auth-library": "^9.10.0",
     "install": "^0.13.0",
     "jimp": "^0.22.12",
     "jsonwebtoken": "^9.0.2",
