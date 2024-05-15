@@ -15,6 +15,23 @@ export class UsuarioServiceImpl implements UsuarioService {
     constructor(usuarioRepositorio: UsuarioRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
     }
+    async updateUsuarioCadastro(usuarioRequestDto: { email: string; name: string; cpf: string; idade: number; type: UserType; }, id: string): Promise<void> {
+        const {cpf, name, email, idade} = usuarioRequestDto;
+        const usuario = await this.usuarioRepositorio.findById(id);
+        if(usuario){
+            usuario.cpf = cpf;
+            usuario.name = name;
+            usuario.idade = idade;
+            usuario.type = UserType.USER
+            usuario.registered = true;
+            await this.usuarioRepositorio.save(usuario);
+            return Promise.resolve();
+        } else {
+            return Promise.reject();
+        }     
+
+        
+    }
     async updateUsuario(file: Express.Multer.File, id: string): Promise<void> {
         
         const nomeImagem = await utils.processaImagemLocal(file, id, 800, 800);
@@ -33,7 +50,7 @@ export class UsuarioServiceImpl implements UsuarioService {
         usuarioNovo.cpf = cpf;
         usuarioNovo.email = email;
         usuarioNovo.name = name;
-        usuarioNovo.type = type
+        usuarioNovo.type = type || UserType.USER
     
        
         return this.usuarioRepositorio.save(usuarioNovo);

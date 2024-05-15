@@ -9,6 +9,14 @@ export class AuthServiceImpl implements AuthService {
     constructor(usuarioRepositorio: UsuarioRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
     }
+    async searchByEmail(email: string): Promise<Usuario> {
+        const jwtSecret = 'secret'
+        const usuario = await this.usuarioRepositorio.findOneQuery({ email })
+        if (usuario){
+            return Promise.resolve(usuario);
+        }
+        return Promise.reject();
+    }
     async login(email: string, password: string): Promise<string> {
         const jwtSecret = 'secret'
         const usuario = await this.usuarioRepositorio.findOneQuery({ email })

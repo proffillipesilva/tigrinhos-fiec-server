@@ -12,7 +12,7 @@ const UsuarioRequestDtoValidation = z.object({
     name: z.string().min(3),
     cpf: z.string().regex(/[0-9]{9}-[0-9]{2}/g),
     idade: z.coerce.number(),
-    type: z.nativeEnum(UserType)
+    type: z.nativeEnum(UserType).optional()
 })
 
 export const UsuarioRequestDtoParams = z.object({

@@ -26,6 +26,18 @@ export class UsuarioController {
         }
     }
 
+    updateUsuarioCadastro = async (req: Request, res: Response) => {
+        try {
+            const usuarioRequestDto = UsuarioRequestDtoValidation.parse(req.body);
+            await this.usuarioService.updateUsuarioCadastro(usuarioRequestDto, req.params.id);         
+
+            return res.status(200).send("ok");
+        } catch (err) {
+            console.log(err);
+            return res.status(500).end('Nao pode criar usuario')
+        }
+    }
+
     updateUsuario = async (req: Request, res: Response) => {
         try {
             if(!req.file || !req.user ) throw new Error();
