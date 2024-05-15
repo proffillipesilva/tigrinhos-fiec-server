@@ -33,7 +33,7 @@ export class UsuarioController {
 
             return res.status(200).send("ok");
         } catch (err) {
-            
+            console.log(err);
             return res.status(500).end('Nao pode criar usuario')
         }
     }

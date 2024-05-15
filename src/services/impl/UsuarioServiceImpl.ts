@@ -28,8 +28,7 @@ export class UsuarioServiceImpl implements UsuarioService {
             return Promise.resolve();
         } else {
             return Promise.reject();
-        }
-        
+        }     
 
         
     }
@@ -51,7 +50,7 @@ export class UsuarioServiceImpl implements UsuarioService {
         usuarioNovo.cpf = cpf;
         usuarioNovo.email = email;
         usuarioNovo.name = name;
-        usuarioNovo.type = type
+        usuarioNovo.type = type || UserType.USER
     
        
         return this.usuarioRepositorio.save(usuarioNovo);

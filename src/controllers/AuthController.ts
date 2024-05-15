@@ -32,6 +32,7 @@ export class AuthController {
     }
 
     loginWithGoogle = async (req: Request, res: Response) => {
+        const jwtSecret = 'secret'
         const token = req.body.gtoken;
         const ticket = await this.client.verifyIdToken({
             idToken: token,
@@ -44,11 +45,21 @@ export class AuthController {
         const email = payload.email;
         console.log(payload);
         try {
-            const token = await this.authService.searchByEmail(email);
-            return res.status(200).json(token)
+            const usuario = await this.authService.searchByEmail(email);
+            const token = jwt.sign({ sub: usuario.email, id: usuario.id }, jwtSecret,
+    
+                {
+                        expiresIn: '10m'
+                });
+                if(usuario.registered){
+                    return res.status(200).json({token});
+                } else {
+                    return res.status(401).json({ usuario, token });
+                }
+            
         } catch(err){
             try{
-                const jwtSecret = 'secret'
+                
                 const usuario = await this.usuarioService.criaUsuario({
                     email: payload.email,
                     name: payload.name,
