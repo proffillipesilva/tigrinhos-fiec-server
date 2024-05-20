@@ -15,6 +15,7 @@ export class UsuarioServiceImpl implements UsuarioService {
     constructor(usuarioRepositorio: UsuarioRepositorio) {
         this.usuarioRepositorio = usuarioRepositorio;
     }
+    
     async updateUsuarioCadastro(usuarioRequestDto: { email: string; name: string; cpf: string; idade: number; type: UserType; }, id: string): Promise<void> {
         const {cpf, name, email, idade} = usuarioRequestDto;
         const usuario = await this.usuarioRepositorio.findById(id);
@@ -67,7 +68,11 @@ export class UsuarioServiceImpl implements UsuarioService {
     async deletaUsuario(id: string): Promise<void> {
         return this.usuarioRepositorio.removeById(id);
     }
-
+    
+    async updateAccount(usuario: Usuario): Promise<void> {
+        await this.usuarioRepositorio.save(usuario);
+        return Promise.resolve();
+    }
 
     
 }

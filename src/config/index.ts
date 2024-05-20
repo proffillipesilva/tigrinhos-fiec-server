@@ -15,6 +15,8 @@ import path from 'path';
 
 const app = expressWs(express()).app;
 
+const efemeralData = {}
+
 app.use(cors());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'))
 app.use(express.json())

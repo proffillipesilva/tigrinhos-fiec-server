@@ -8,4 +8,6 @@ export interface UsuarioService {
     listaUsuarios() : Promise<Usuario[]>;
     pegaUsuario(id: string) : Promise<Usuario | undefined>;
     deletaUsuario(id: string) : Promise<void>
+    updateAccount(usuario: Usuario) : Promise<void>
+
 }

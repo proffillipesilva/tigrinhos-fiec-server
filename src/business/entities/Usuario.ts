@@ -37,5 +37,8 @@ export class Usuario extends BaseTypeorm {
 
     @Column({default: false})
     registered: boolean
+
+    @Column({default: 0})
+    balance: number
     
 }

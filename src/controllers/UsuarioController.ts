@@ -3,6 +3,8 @@ import { UsuarioService } from "../services/UsuarioService";
 import { UsuarioRequestDtoParams, UsuarioRequestDtoValidation } from "../dto/UsuarioRequestDto";
 import { ZodError } from "zod";
 import { UsuarioResponseDto } from "../dto/UsuarioResponseDto";
+import Stripe from "stripe";
+import { efemeralData } from "../config/efemeral-data";
 
 export class UsuarioController {
 
@@ -81,4 +83,46 @@ export class UsuarioController {
         }
     }
 
+    updateAccount = async (req: Request, res: Response) => {
+        console.log(req.body)
+        const { amount, token } = req.body;
+
+        const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
+
+        try {
+          const charge = await stripe.paymentIntents.create({
+            amount,
+            currency: 'usd',
+            description: 'Charge for test@example.com',
+          });
+          console.log(charge)
+          if(charge.client_secret)
+             efemeralData[charge.client_secret] = amount/100;
+          res.json(charge)
+        } catch (err) {
+          console.error(err);
+          res.status(500).send('Payment failed');
+        }
+    };
+
+    confirmPayment = async (req: Request, res: Response) => {
+        console.log("Confirm Payment")
+        const { clientSecret } = req.body;
+        const user = req.user as any;
+        console.log(user);
+        console.log(efemeralData)
+        try {
+          const usuario = await this.usuarioService.pegaUsuario(user.id);
+          if(usuario != null){
+            usuario.balance += efemeralData[clientSecret] as number;
+            await this.usuarioService.updateAccount(usuario)
+          }
+          res.json("ok")
+
+        } catch (err) {
+          console.error(err);
+          res.status(500).send('Payment failed');
+        }
+    };
+ 
 }
